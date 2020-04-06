@@ -5,7 +5,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 class EleicaoComponent extends Component {
     constructor(props) {
         super(props)
-        this.state = {
+
+        this.onSubmit = this.onSubmit.bind(this)
+        this.refreshEleicoes = this.refreshEleicoes.bind(this)
+        this.validate = this.validate.bind(this)
+        this.getInicialStateEleicao = this.getInicialStateEleicao.bind(this)
+
+        this.state = this.getInicialStateEleicao();
+
+        this.refreshEleicoes();
+    }
+
+    getInicialStateEleicao() {
+        return {
             eleicoes: [],
             message: null,
             id: -1,
@@ -13,16 +25,6 @@ class EleicaoComponent extends Component {
             inicio: '',
             fim: ''
         }
-
-        this.onSubmit = this.onSubmit.bind(this)
-        this.refreshEleicoes = this.refreshEleicoes.bind(this)
-        this.validate = this.validate.bind(this)
-
-        this.refreshEleicoes();
-    }
-
-    eleicaotDidMount() {
-        this.refreshEleicoes();
     }
 
     onSubmit(values) {
@@ -37,7 +39,7 @@ class EleicaoComponent extends Component {
         values.inicio = ''
         values.fim = ''
 
-        EleicaoDataService.createEleicoes(eleicao)
+        EleicaoDataService.criarEleicoes(eleicao)
             .then(
                 response => {
                     this.setState({ message: `Eleição salva com sucesso!` })
@@ -48,7 +50,7 @@ class EleicaoComponent extends Component {
     }
 
     refreshEleicoes() {
-        EleicaoDataService.retrieveAllEleicoes()
+        EleicaoDataService.retornaTodasEleicoes()
             .then(
                 response => {
                     this.setState({ eleicoes: response.data })
@@ -60,7 +62,7 @@ class EleicaoComponent extends Component {
         let errors = {}
         if (!values.nome) {
             errors.nome = 'Informe um nome para a Eleição'
-        } else if (values.description.length < 5) {
+        } else if (values.nome.length < 5) {
             errors.nome = 'O nome tem que conter no minimo 5 digitos'
         }
 
