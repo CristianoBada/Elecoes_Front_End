@@ -20,6 +20,14 @@ class EleicaoDataService {
     criarCargo(cargo) {
         return axios.post(`${INSTRUTOR_API_URL}/cargos`, cargo);
     }
+
+    retornaTodosCandidatos() {
+        return axios.get(`${INSTRUTOR_API_URL}/candidatos`);
+    }
+
+    criarCandidato(candidato) {
+        return axios.post(`${INSTRUTOR_API_URL}/candidatos`, candidato);
+    }
 }
 
 export default new EleicaoDataService();
