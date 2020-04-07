@@ -36,6 +36,10 @@ class EleicaoDataService {
     retornaEleicoesEmAndamento() {
         return axios.get(`${INSTRUTOR_API_URL}/relatorioParcial`);
     }
+
+    retornaCargosPorEleicao(id) {
+        return axios.get(`${INSTRUTOR_API_URL}/cargos/eleicoes`, id);
+    }
 }
 
 export default new EleicaoDataService();

@@ -64,6 +64,9 @@ class RelatorioComponent extends Component {
             doc.setFontSize(14);
             doc.text(20, linha, 'Eleição: ' + object.nome);
             linha = linha + 20;
+            var c = [];
+            c = EleicaoDataService.retornaCargosPorEleicao()
+                
         });
 
 
