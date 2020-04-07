@@ -67,12 +67,9 @@ class EleicaoComponent extends Component {
         }
 
         return errors
-
     }
 
     render() {
-        console.log('render')
-
         let { nome, inicio, fim, id } = this.state
 
         return (

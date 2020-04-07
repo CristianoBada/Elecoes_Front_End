@@ -28,8 +28,6 @@ class CargoComponent extends Component {
         this.refreshCargos();
     }
 
-
-
     getInicialStateCago() {
         return {
             cargos: [],
@@ -38,17 +36,21 @@ class CargoComponent extends Component {
             message: null,
             id: -1,
             nome: '',
-            eleicao: { id: -1, nome: '', fim: '', inicio: '' }
+            eleicao: { id: -1, nome: '', fim: '', inicio: '' }, //Variavel para manter o select selecionado
+            eleicao2: { id: -1, nome: '', fim: '', inicio: '' } //Gabiarra para salvar a eleicão no banco
         };
     }
 
     onSubmit(values) {
         let cargo = {
             id: this.state.id,
-            nome: values.nome
+            nome: values.nome,
+            eleicao: this.state.eleicao2
         }
 
         values.nome = ''
+        this.setState({ eleicao: { id: -1, nome: '', fim: '', inicio: '' }, })
+        this.setState({ eleicao2: { id: -1, nome: '', fim: '', inicio: '' }, })
 
         EleicaoDataService.criarCargo(cargo)
             .then(
@@ -91,14 +93,11 @@ class CargoComponent extends Component {
 
     alaterarItem = (e) => {
         console.log(e.value.nome)
-        this.setState({ eleicao: e.value.eleicao})
+        this.setState({ eleicao2: { id: e.value.id, nome: e.value.nome, fim: e.value.fim, inicio: e.value.inicio } })
+        this.setState({ eleicao: e.value.eleicao })
     }
 
     render() {
-        console.log('render')
-
-        
-
         let { nome, id, eleicao} = this.state
 
         return (

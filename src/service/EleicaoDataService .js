@@ -28,6 +28,14 @@ class EleicaoDataService {
     criarCandidato(candidato) {
         return axios.post(`${INSTRUTOR_API_URL}/candidatos`, candidato);
     }
+
+    retornaEleicoesFinalizadas() {
+        return axios.get(`${INSTRUTOR_API_URL}/relatorioFinal`);
+    }
+
+    retornaEleicoesEmAndamento() {
+        return axios.get(`${INSTRUTOR_API_URL}/relatorioParcial`);
+    }
 }
 
 export default new EleicaoDataService();

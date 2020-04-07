@@ -37,7 +37,8 @@ class CandidatoComponent extends Component {
             nome: '',
             imagem: '',
             votos: 0,
-            cargo: { id: 1, nome: 'Programador C++', eleicao: { id: 2, nome: 'segunda', inicio: '2020-06-01', fim: '2020-03-01' } }
+            cargo: { id: -1, nome: '', eleicao: { id: -1, nome: '', inicio: '', fim: '' } },
+            cargo2: { id: -1, nome: '', eleicao: { id: -1, nome: '', inicio: '', fim: '' } }
         }
     }
 
@@ -47,10 +48,12 @@ class CandidatoComponent extends Component {
             nome: values.nome,
             votos: this.state.votos,
             imagem: this.state.imagem,
-            cargo: this.state.cargo
+            cargo: this.state.cargo2
         }
 
         values.nome = ''
+        this.setState({ cargo: { id: -1, nome: '', eleicao: { id: -1, nome: '', inicio: '', fim: '' } } })
+        this.setState({ cargo2: { id: -1, nome: '', eleicao: { id: -1, nome: '', inicio: '', fim: '' } }})
 
         EleicaoDataService.criarCandidato(candidato)
             .then(
@@ -94,10 +97,10 @@ class CandidatoComponent extends Component {
     alaterarItem = (e) => {
         console.log(e.value.nome)
         this.setState({ cargo: e.value.cargo })
+        this.setState({ cargo2: { id: e.value.id, nome: e.value.nome, eleicao: e.value.eleicao } })
     }
 
     render() {
-        console.log('render')
 
         let { nome, id, imagem, votos } = this.state
 
